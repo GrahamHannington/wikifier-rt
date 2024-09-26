@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<link href="images/favicon.ico" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Wikifier RT - Help</title>
+<style type="text/css">
+/* <![CDATA[ */
+body
+{
+  font-family: sans-serif;
+  font-size: 0.9em;
+  line-height: 1.5em;
+  margin: 0 auto 1em auto;
+  padding: 0 0 1em 0;
+  background-color: #FCFCFC;
+}
+body > *,
+div.sidebar > *,
+div.sidebar-left > *
+{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+div.sidebar,
+div.sidebar-left
+{
+  margin: 0;
+}
+@media (min-width: 800px) /* If width at least 800px, outdent headings */
+{
+  body > *,
+  div.sidebar > *,
+  div.sidebar-left > *
+  {
+    margin-left: 15%;
+  }
+  body > h2,
+  div.sidebar > h2,
+  div.sidebar-left > h2,
+  body > h3,
+  div.figure
+  {
+    margin-left: 5%;
+  }
+}
+h1
+{
+  font-size: 2em;
+  line-height: 1.1em;
+  padding: 0.5em 5% 0.5em 5%;
+  margin: 0 0 1em 0;
+}
+h2
+{
+  font-size: 1.5em;
+  line-height: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #909090;
+}
+h3
+{
+  font-size: 1.3em;
+  line-height: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+}
+h4
+{
+  font-size: 1.1em;
+  line-height: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+}
+@media screen
+{
+  html
+  {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #EEEEEE; /* Fills the page */
+    position: relative; /* Fix for absolute positioning */
+  }
+  h1
+  {
+    color: #FFFFFF;
+    background-color: #909090;
+  }
+  a
+  {
+    color: #0000C0;
+  }
+}
+@media print
+{
+  h1
+  {
+  font-size: xx-large;
+  }
+  a
+  {
+    color: #000000;
+  }
+  div.button
+  {
+    display: none;
+  }
+}
+.super
+{
+  font-size: 0.75em;
+  vertical-align: super;
+}
+pre, code, kbd, samp, tt, textarea /* Fixes font size bug in Firefox and Chrome */
+{
+  font-family: monospace, monospace;
+}
+pre
+{
+  white-space: pre-wrap;
+}
+ul
+{
+  padding: 0;
+  list-style-type: square;
+}
+ol
+{
+  padding-left: 0.5em;
+  list-style-type: arabic;
+}
+ol ol
+{
+  list-style-type: lower-alpha;
+}
+ol ol ol
+{
+  list-style-type: lower-roman;
+}
+li
+{
+  margin-left: 1em;
+  padding-left: 1em;
+}
+p, ul, ol, li
+{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+dt
+{
+  margin-top: 0.5em;
+}
+dd
+{
+  margin-left: 2em;
+}
+blockquote
+{
+  border-left: 1px solid #909090;
+  padding-left: 2em;
+}
+table
+{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+table caption
+{
+  font-style: italic;
+  text-align: left;
+  padding: 0.5em;
+  margin-bottom: 0;
+}
+th
+{
+  vertical-align: bottom;
+  text-align: left;
+  background-color: #F0F0F0;
+}
+td
+{
+  vertical-align: top;
+}
+td, th
+{
+  border: 1px solid #909090;
+  padding: 0.5em;
+}
+dt
+{
+  font-weight: bold;
+}
+a
+{
+  text-decoration: none;
+}
+a:hover
+{
+  text-decoration: underline;
+}
+span.normal
+{
+  font-weight: normal;
+  font-style: normal;
+}
+span.reverse
+{
+  background-color: #000000;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 0 0.3em 0 0.3em;
+}
+span.highlight
+{
+  background-color: #FFFF00;
+  padding: 0 0.3em 0 0.3em;
+}
+table.invisible td
+{
+  border: none;
+  padding: 0.5em 0.5em 0.5em 0;
+}
+table.nowrap-first-column td:first-child,
+table.nowrap-first-column th:first-child
+{
+  white-space: nowrap;
+}
+address
+{
+  font-style: normal;
+}
+div.frame
+{
+  padding: 0.5em 1em 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #909090;
+}
+ul.simple-compact
+{
+  list-style-type: none;
+}
+ul.simple-compact li
+{
+  margin: 0;
+}
+.nowrap
+{
+  white-space: nowrap;
+}
+div.button
+{
+  float: right;
+  background-color: #99C019;
+  border-radius: 10px;
+  width: 200px;
+}
+div.button a
+{
+  color: #FFFFFF;
+  transition: background-color .4s linear;
+  -moz-transition: background-color .4s linear;
+  -ms-transition: background-color .4s linear;
+  -webkit-transition: background-color .4s linear;
+}
+div.button a,
+div.button a:hover
+{
+  display: block;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 1.1em;
+}
+div.button a:hover
+{
+  background-color: #BDD930;
+  text-decoration: none;
+}
+@media screen and (min-width: 1260px) /* If width at least 1260px, show button as sidebar */
+{
+  div.button
+  {
+    position: relative;
+    float: right;
+    margin: 0 -220px 0 0;
+  }
+}
+.sidebar-only
+{
+  display: none;
+}
+@media screen and (min-width: 1260px) /* If width at least 1260px, show button as sidebar */
+{
+  .sidebar-only
+  {
+    display: block;
+  }
+  div.sidebar,
+  div.sidebar-left
+  {
+    position: relative;
+    background-color: #FCFCFC;
+    width: 200px;
+    border-radius: 10px;
+    padding: 0 0 10px;
+  }
+  div.sidebar
+  {
+    float: right;
+    margin: 0 -220px 20px 0;
+    clear: right;
+  }
+  div.sidebar-left
+  {
+    float: left;
+    margin: 0 0 20px -220px;
+    clear: left;
+  }
+  div.sidebar > *,
+  div.sidebar-left > *
+  {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  div.sidebar > h2,
+  div.sidebar-left > h2
+  {
+    font-size: 1em;
+    color: #FFFFFF;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+    margin: 0;
+    background-color: #909090;
+  }
+}
+/* ]]> */
+</style>
+</head>
+<body>
+<h1>Wikifier RT</h1>
+<div class="figure" style="padding: 1em 0 1em 0 ; margin-left: 0; margin-right: 0; margin-top: 2em; margin-bottom: 2em; background-color: #EEEEEE;"><object style="padding: 0; margin: 0;" data="images/wikifier-cartoon-cheese.svg" type="image/svg+xml" style="width: 100%;"></object></div>
+<div class="button"><a href="index.html">Go to the Wikifier RT web page</a></div>
+<p>Wikifier RT is a web page that converts Confluence 4 rich text editor content to wiki markup.</p>
+<p>Wikifier RT does not send your content to a 
+server. All processing of your content is done in your browser ("client-side").</p>
+<div class="sidebar">
+<h2>Support</h2>
+<p>Wikifier RT is developed by Graham Hannington (Confluence user; no other affiliation with Atlassian).</p>
+<p>Feedback welcome.</p>
+<p>If Wikifier RT does not correctly
+convert your content, please create an issue containing the HTML source of the rich text,
+and I will do what I can. No promises, though.</p>
+<p>To view the HTML source of the rich text, click the <strong>Show HTML</strong> option next to the <strong>Rich text</strong> heading.</p>
+</div>
+<h2>Compatible web browsers</h2>
+<p>Wikifier RT requires a modern (circa 2012) web browser.</p>
+<p>Wikifier RT has been tested in the following web browsers: IE9, and current 
+"production" versions of Chrome, Firefox, and Safari (all on Windows).</p>
+<h2>Getting started</h2>
+<p>To convert Confluence rich text editor content to wiki markup:</p>
+<ol>
+<li>Copy content from the Confluence rich text editor to the clipboard.</li>
+<li>Go to the Wikifier RT web page.</li>
+<li>Paste (press Ctrl+V) the content under the <strong>Rich text</strong> heading.
+The corresponding wiki markup appears under the <strong>Wiki markup</strong> heading.</li>
+</ol>
+<p>To copy the wiki markup from Wikifier RT to the clipboard:</p>
+<ol>
+<li>Select the wiki markup (tip: press Ctrl+A).</li>
+<li>Copy (press Ctrl+C) the selection to the clipboard.</li>
+</ol>
+<p>What you do with the wiki markup is up to you.</p>
+<p>To insert the wiki markup into the Confluence rich text editor:</p>
+<ul>
+<li>If you want to convert the wiki markup back to rich text and
+save it in the Confluence XML storage format, then use the
+Confluence rich text editor <strong>Insert wiki markup</strong> option.</li>
+</ul>
+<h2>Keyboard shortcuts</h2>
+<p>The following Wikifier RT options have access keys:</p>
+<table>
+<tr>
+<th>Option</th>
+<th>Access key</th>
+</tr>
+<tr>
+<td>Clear</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Show/Hide HTML</td>
+<td>H</td>
+</tr>
+<tr>
+<td>Update rich text (from the HTML source)</td>
+<td>U</td>
+</tr>
+<tr>
+<td>Wikify</td>
+<td>W</td>
+</tr>
+</table>
+<p>The key combination for using access keys depends on your browser and
+operating system. For example, for Firefox on Windows, to click the <strong>Wikify</strong> option,
+press Shift+Ctrl+W.</p>
+<h2>Tips</h2>
+<h3>Editing rich text or its HTML source</h3>
+<p>You can edit the contents of all three views in Wikifier RT:
+rich text, wiki markup, and HTML source.
+To display the HTML source view, click the <strong>Show HTML</strong> option next to the <strong>Rich text</strong> heading.</p>
+<p>The rich text view offers no editing features beyond those provided by your web browser.
+(The rich text view is an inline frame whose body element has the attribute <code>contenteditable="true"</code>.)</p>
+<p>The wiki markup view and the HTML source view are both plain text areas (textarea form elements).</p>
+<p>None of the views is intended to be more than a temporary scratchpad. They are not replacements for dedicated editors.</p>
+<p>The HTML source view makes no attempt to format the underlying HTML source
+of the rich text. It displays, verbatim, with no additional whitespace or prettification, the value of the <code>innerHTML</code> property of the body element
+of the inline frame that contains the rich text.</p>
+<p>Several browser add-ons, such as Firebug, offer better features for editing the underlying HTML source of the Confluence rich text editor.
+However, Wikifier RT enables you to neatly pluck your page content from the surrounding "chrome" of the rich text editor HTML.</p>
+<p>You can copy the HTML from the Wikifier RT HTML source view, paste it into your favorite text editor, edit it, paste it back into the Wikifier RT HTML source view,
+click the <strong>Update rich text</strong> option, and then copy the updated rich text back into Confluence, all without going anywhere near wiki markup.</p>
+<p>Editing the HTML source view does not automatically update the rich text view.
+To update the rich text view from the HTML source, click the 
+<strong>Update rich text</strong> option.
+Wikifying the rich text updates both the HTML source view and the wiki markup view.</p>
+<h3>Triggering the conversion to wiki markup</h3>
+<p>You can trigger the conversion of rich text to wiki markup by doing any of the following:</p>
+<ul>
+<li>In the rich text view, press Ctrl+V (this specific key combination,
+not any other keyboard shortcut for the clipboard paste operation).</li>
+<li>In the rich text view, press Enter.</li>
+<li>Click the <strong>Wikify</strong> option.</li>
+</ul>
+<p>Pressing Ctrl+V or Enter in the rich text view also sets the focus
+(moves the cursor) to the wiki markup view. Clicking the <strong>Wikify</strong> option does
+not change the focus. This difference in behavior is deliberate, and
+is a work-in-progress.</p>
+<h3>Washing web page content before inserting into Confluence</h3>
+<p>You can paste content from any web page into the Confluence rich text editor.
+However, the Confluence rich text editor does not (currently) provide the ability to edit all of the HTML elements and attributes that can occur in web pages.</p>
+<p>The Confluence rich text editor removes from pasted content some, but not all, of the elements and attributes that it does not enable you to edit.</p>
+<p>For example, content that you paste into the editor from some arbitrary web page can contain class attributes that refer to definitions
+that do not exist in the Confluence cascading style sheets (CSS). However, the Confluence rich text editor keeps class attributes, because, under some circumstances, the editor itself sets Confluence-specific class attribute values. This is a relatively benign example, but the point is that,
+if you paste content from a web page directly into the Confluence rich text editor, you do not necessarily know the details of the markup that you are pasting.</p>
+<p>However, if you paste content from a web page into the Wikifier RT rich text view, and then convert it to wiki markup, the conversion
+"washes" the content clean of any attributes that are not supported in wiki markup. It will, however, also wash the content clean of
+attributes that you might wish to preserve, and are supported by the Confluence editor, but not by wiki markup, such as merged (spanned) table cells.</p>
+<h2>How it works</h2>
+<p>When you trigger the conversion from rich text to wiki markup (for example, by clicking the <strong>Wikify</strong> option), Wikifier RT
+performs the following steps:</p>
+<ol>
+<li>Copies the contents of the rich text view (technically, the <code>innerHTML</code> property value) to the HTML source view (whether or not that view is actually visible at the time).</li>
+<li>Copies the contents of the HTML source view to a string variable.</li>
+<li>Manipulates the HTML source string so that it is well-formed XML:
+<ol>
+<li>Adds end tags to empty HTML elements (such as <code>br</code>).</li>
+<li>Wraps the HTML in a root element.</li>
+</ol>
+</li>
+<li>Uses an XSLT stylesheet (this is the "core" of Wikifier RT; the rest is all just supporting code) to convert the "XML-ified" HTML to wiki markup.</li>
+</ol>
+<h2>Limitations</h2>
+<ul>
+<li>Some Confluence rich text editor formatting, such as spanned table cells,
+cannot be represented in native wiki markup.
+<p>Wikifier RT typically omits such formatting from the wiki markup.</p>
+<p>One exception is page layout divisions: Wikifier RT inserts horizontal lines to mark the division boundaries.</p>
+</li>
+<li>Image attachments appear in the Wikifier RT rich text view only if you are
+logged into the Confluence installation that contains those images.</li>
+</ul>
+<h2>Known issues</h2>
+<ul>
+<li>Wikifier RT currently converts only a subset of the rich text editor formatting that can be represented in wiki markup. If Wikifier RT does
+not correctly convert your content, please contact me, and I will do what I can. No promises, though.</li>
+<li>When you click the <strong>Clear</strong> option, the HTML source view
+sometimes still contains a <code>&lt;br&gt;</code> element.</li>
+</ul>
+<h2>To do</h2>
+<p>Maybe:</p>
+<ul>
+<li>Clean up and comment the source code. Make it something real web programmers could look at without wincing.</li>
+<li>Fine-tune the change of focus, especially after clicking options. For example, after clicking <strong>Wikify</strong>, perhaps focus (and the insertion point)
+should automatically revert back to where it was before <strong>Wikify</strong> was clicked. Might be too much work.</li>
+</ul>
+<h2>Development notes</h2>
+<h3>Why no resizable frames?</h3>
+<p>I could have coded Wikifier RT using a frameset, but I did not want to be laughed at by the cool kids.</p>
+<p>I could code resizable frames using a JavaScript framework such as jQuery, but for now,
+I have deliberately chosen to keep the download size of Wikifier RT very small
+(yes, even smaller than the remarkably small footprints of modern minimized frameworks).
+I have not yet had time to investigate coding the necessary JavaScript without a framework.
+I am waiting for the milk to soften the nuts and bolts in my cereal bowl.</p>
+<h3>Using CSS to format the rich text view</h3>
+<p>Wikifier RT does not attempt to exactly match the CSS used by the Confluence rich text editor.</p>
+<p>For example, the Confluence rich text editor uses relative URLs to display background images for the title bars of block macro placeholders. These relative URLs do not work when block macros are pasted into Wikifier RT, so Wikifier uses CSS to display the macro name and parameter values that would otherwise be displayed by the background images.</p>
+<h2>Change log</h2>
+<p>Most recent changes first:</p>
+<table class="nowrap-first-column">
+<tr>
+<th>Date<br/><var>yyyy</var>-<var>mm</var>-<var>dd</var></th>
+<th>Description</th>
+</tr>
+<tr>
+<td>2024-09-26</td>
+<td>Resurrected Wikifier RT as a GitHub Pages site after discovering that the original site hosted by Amnet was no longer available.
+<p>Minor updates:</p>
+<ul>
+<li>Remove references to old, broken links</li>
+<li>Make this site stand-alone (copy externally referenced images to this site)</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>2012-07-09</td>
+<td>First release.</td>
+</tr>
+</table>
+<h2>License</h2>
+<p>This package and its contents are distributed under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD 2-Clause license</a> (also known as the Simplified BSD license):</p>
+<div class="frame">
+<p>Copyright &copy; 2012, Fundi Software</p>
+<p>All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+<ul>
+<li>Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</div>
+</body>
+</html>

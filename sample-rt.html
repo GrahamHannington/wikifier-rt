@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>contenteditable</title>
+<style type="text/css">
+/* <![CDATA[ */
+body {
+  font-family: sans-serif;
+  background-color: white;
+  color: black;
+  font-size: 0.9em;
+}
+h1, h2
+{
+  border-bottom: 1px solid #D0D0D0;
+}
+p
+{
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+li
+{
+  margin: 0;
+  padding: 0;
+}
+blockquote
+{
+  padding-left: 2em;
+  margin-left: 0;
+  border-left: 1px solid #D0D0D0;
+  font-style: italic;
+}
+table
+{
+  border-collapse: collapse;
+}
+th
+{
+  vertical-align: bottom;
+  text-align: left;
+  background-color: #F0F0F0;
+}
+td
+{
+  vertical-align: top;
+}
+td, th
+{
+  border: 1px solid #D0D0D0;
+  padding: 0.5em;
+}
+td.wysiwyg-macro-body
+{
+  margin: 0.5em;
+  background-color: #FFFFFF;
+  border-radius: 0.25em;
+}
+table.wysiwyg-macro
+{
+  border-collapse: separate;
+  border: 1px solid #D0D0D0;
+  background-color: #F0F0F0;
+  width: 100%;
+  padding: 0.25em;
+  border-radius: 0.25em;
+}
+table.wysiwyg-macro:before
+{
+  display: table-cell;
+  content: "{" attr(data-macro-name) "}";
+  border: none;
+  color: #606060;
+  background-color: #F0F0F0;
+}
+table.wysiwyg-macro[data-macro-parameters]:before
+{
+  display: table-cell;
+  content: "{" attr(data-macro-name) ":" attr(data-macro-parameters) "}";
+  border: none;
+  color: #606060;
+  background-color: #F0F0F0;
+}
+table.wysiwyg-macro[data-macro-body-type = "PLAIN_TEXT"] > tbody > tr > td > pre
+{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+td.wysiwyg-macro-body:first-child > p
+{
+  margin-top: 0;
+}
+td.wysiwyg-macro-body:last-child > p
+{
+  margin-bottom: 0;
+}
+div.contentLayout > div.columnLayout > div.cell,
+div.contentLayout > div.header,
+div.contentLayout > div.footer
+{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border: 2px dashed #CCCCCC;
+  border-radius: 0.25em;
+  padding: 0.25em;
+}
+/* ]]> */
+</style>
+</head>
+<body contenteditable="true" onkeyup="parent.keyup(event)" onload="parent.initialize()">
+<h1>Wikifier RT</h1><p>Paste content from the Confluence editor under the <strong>Rich text</strong> heading.</p>
+</body>
+</html>
+</body>
+</html>

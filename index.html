@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<link href="images/favicon.ico" rel="shortcut icon"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Wikifier RT - Convert Confluence rich text editor HTML to wiki markup</title>
+<style type="text/css">
+/* <![CDATA[ */
+*
+{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+html, body
+{
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-size: 1em;
+  line-height: 1em;
+}
+form,
+form > fieldset,
+form > fieldset > textarea
+{
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+form > fieldset > textarea
+{
+  white-space: pre-wrap;
+}
+textarea.error
+{
+  background-color: #FFC0C0;
+}
+textarea
+{
+  overflow: auto;
+  resize: none;
+}
+button
+{
+  margin-top: -0.3em; /* Kludge to vertically center button */
+  margin-left: 0.5em;
+}
+a, a:hover, a:active, a:focus
+{
+  outline: 0;
+  text-decoration: none;
+}
+a:hover, a:focus
+{
+  color: #000000;
+}
+a
+{
+  float: right;
+  color: #606060;
+  font-weight: normal;
+  font-size: 0.8em;
+  display: block-inline;
+  margin-left: 2em;
+}
+iframe
+{
+  border: none;
+}
+/* ]]> */
+</style>
+<script type="text/javascript">
+// <![CDATA[
+var xsl;
+
+function initialize()
+{
+  // Select default rich text
+  selectIframeContents(document.getElementById("richtext"));
+  // Set focus to the rich text
+  // (so that Paste replaces the default rich text)
+  document.getElementById("richtext").contentDocument.body.focus();
+  
+  // Get XSLT stylesheet
+  if (window.ActiveXObject)
+    xmlhttp = new ActiveXObject("MSXML2.XMLHTTP.6.0");
+  else
+    xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", "rte-xhtml2wiki.xsl", false);
+  if (window.ActiveXObject)
+  {
+    xmlhttp.responseXML.async = false;
+    xmlhttp.responseXML.resolveExternals = true;
+    xmlhttp.responseXML.validateOnParse = false;
+    xmlhttp.responseXML.preserveWhiteSpace = true;
+  }
+  xmlhttp.send();
+  xsl = xmlhttp.responseXML;
+  if (window.ActiveXObject)
+    xsl.setProperty("AllowDocumentFunction", true);
+  
+  wikify();
+}
+
+function selectIframeContents(ifm)
+{
+  var range = ifm.contentDocument.createRange();
+  range.selectNodeContents(ifm.contentDocument.body);
+  var sel = ifm.contentWindow.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function selectElementContents(el)
+{
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function keyup(e)
+{
+  var keyPressed;
+  var KEY_CODE_PASTE = 86;
+  var KEY_CODE_ENTER = 13;
+  
+  if (window.event)
+    keyPressed = window.event.keyCode; // IE
+  else
+    keyPressed = e.which; // Others
+  
+  if (keyPressed==KEY_CODE_ENTER || keyPressed==KEY_CODE_PASTE)
+  {
+    wikify();
+    // Select wiki markup, ready for copying to the clipboard
+    document.getElementById("wikimarkup").focus();
+    
+  }
+}
+
+// Updates the HTML source view from the rich text view
+function richTextToHTML()
+{
+  var source = document.getElementById("richtext").contentDocument.body.innerHTML;
+  // If innerHTML begins with a newline, strip it
+  if (source.substring(0, 1) == "\n")
+    source = source.substring(1);
+  document.getElementById("htmlsource").value = source;
+}
+
+// Updates the rich text view from the HTML source view
+function HTMLToRichText()
+{
+  var source = document.getElementById("htmlsource").value;
+  document.getElementById("richtext").contentDocument.body.innerHTML = source;
+}
+
+function wikify()
+{
+  var strWrapperTop = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+    "<body xmlns=\"http://www.w3.org/1999/xhtml\">";
+  var strWrapperBottom = "</body>";
+  // Copy the contents of the rich text view to the HTML (source) view
+  richTextToHTML();
+  // Wrap HTML snippet in a root element
+  var strRTEXHTMLDoc = strWrapperTop + document.getElementById("htmlsource").value + strWrapperBottom;
+  
+  // Close <br>, <hr>, and <img> elements
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(br[^>]*)>/g, "<$1/>");
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(hr[^>]*)>/g, "<$1/>");
+  // More complex regular expression to allow for > in img attribute values
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(img(?:\s+\S+\s*=\s*"[^"]+")+)>/g, "<$1/>");
+  // Also <col> elements (these do not exist in RTE HTML this is just in case someone pastes in content from, say, Excel
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(col\s+[^>]*)>/g, "<$1/>");
+  
+  // Replace entity references (needs work!)
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/\&nbsp;/g, "&#160;");
+  
+  // IE
+  if (window.ActiveXObject)
+  {
+    // Creating the new empty DOM tree:
+    var xml = new ActiveXObject("MSXML2.DOMDocument.6.0");
+    // No asynchronous load:
+    xml.async = false;
+    xml.preserveWhiteSpace = true;
+    xml.resolveExternals = true;
+    xml.setProperty("ProhibitDTD", false);
+    xml.loadXML(strRTEXHTMLDoc);
+    if (xml.parseError.errorCode == 0)
+    {
+      with (document.getElementById("wikimarkup"))
+      {
+        className = "";
+      }
+    } else
+    {
+      var errorPossibleFix = "";
+      if (xml.parseError.errorCode == -1072896763)
+      {
+        errorPossibleFix = "Check that your HTML source (except for elements such as <br>, which are expected to be specified just like that, with no end tag) is well-formed (no missing end tags).\n"
+      }
+      with (document.getElementById("wikimarkup"))
+      {
+        className = "error";
+        value = xml.parseError.reason + errorPossibleFix + "\nError code: " + xml.parseError.errorCode;
+      }
+      return;
+    }
+    var strWikiMarkup = xml.transformNode(xsl.documentElement);
+  }
+  // Other browers
+  else if (document.implementation && document.implementation.createDocument)
+  {
+    var strError = "";
+    var parser = new DOMParser();
+    var xml = parser.parseFromString(strRTEXHTMLDoc, "application/xml");
+    if (xml.documentElement.nodeName=="parsererror")
+    {
+      var strError=xml.documentElement.childNodes[0].nodeValue;
+      with (document.getElementById("wikimarkup"))
+      {
+        className = "error";
+        value = strError;
+      }
+      return;
+    } else {
+      var errors = xml.getElementsByTagName("parsererror");
+      if (errors.length > 0)
+      {
+        with (document.getElementById("wikimarkup"))
+        {
+          className = "error";
+          value = errors[0].textContent + "\n(No there isn't. Fix the error!)"
+        }
+        return;
+      }
+    }
+    with (document.getElementById("wikimarkup"))
+    {
+      className = "";
+    }
+    xsltProcessor= new XSLTProcessor();
+    xsltProcessor.importStylesheet(xsl);
+    strWikiMarkup = xsltProcessor.transformToFragment(xml,document).textContent;
+  }
+  document.getElementById("wikimarkup").value = strWikiMarkup;
+}
+
+// Clear content from all views
+function clearContent()
+{
+  document.getElementById("richtext").contentDocument.body.innerHTML = "";
+  document.getElementById("htmlsource").value = "";
+  document.getElementById("wikimarkup").value = "";
+}
+
+// Toggles the visibility of the HTML source view
+function toggleHTML()
+{
+  if (document.getElementById("htmlsource-container").style["visibility"] == "hidden")
+  {
+    richTextToHTML();
+    document.getElementById("richtext").style["height"] = "50%";
+    document.getElementById("htmlsource-container").style["visibility"] = "visible";
+    document.getElementById("htmlsource-banner").style["visibility"] = "visible";
+    document.getElementById("toggle-html").innerHTML = "Hide HTML";
+    document.getElementById("toggle-html").title = "Hide the HTML source of this rich text";
+  }
+  else
+  {
+    document.getElementById("htmlsource-container").style["visibility"] = "hidden";
+    document.getElementById("htmlsource-banner").style["visibility"] = "hidden";
+    document.getElementById("richtext").style["height"] = "100%";
+    document.getElementById("toggle-html").innerHTML = "Show HTML";
+    document.getElementById("toggle-html").title = "Show the HTML source of this rich text";
+  }
+}
+// ]]>
+</script>
+</head>
+<body>
+
+<!-- Rich text -->
+<iframe src="sample-rt.html" style="position: absolute; width: 50%; height: 100%; overflow-y: auto; padding: 2em 0 0 0; margin: 0;" id="richtext"></iframe>
+<div style="position: absolute; width: 50%; height: 2em; top: 0; left: 0; padding: 0.5em; background-color: #D0D0D0; font-weight: bold;"><a href="#" title="Convert to wiki markup" onclick="wikify(); return false;" accesskey="w">Wikify</a><a href="#" title="Clear content" onclick="clearContent(); return false;" accesskey="c">Clear</a><a href="#" id="toggle-html" title="Show the HTML source of this rich text" onclick="toggleHTML(); return false;" accesskey="h">Show HTML</a>Rich text</div>
+
+<!-- HTML source -->
+<form id="htmlsource-container" style="visibility: hidden; position: absolute; top: 50%; left: 0; height: 50%; width: 50%; padding-top: 2em;" action=""><fieldset><textarea style="padding-left: 0.5em;" id="htmlsource" rows="1" cols="1">&lt;h1&gt;Wikifier&lt;/h1&gt;
+&lt;p&gt;Or enter HTML source code here.&lt;/p&gt;
+</textarea>
+</fieldset>
+</form>
+<div id="htmlsource-banner" style="visibility: hidden; position: absolute; top: 50%; left: 0; width: 50%; height: 2em; padding: 0.5em; background-color: #E0E0E0; font-weight: bold;"><a href="#" title="Update the rich text using this HTML (useful if you've edited the HTML, and want to paste it back into the Confluence editor)" onclick="HTMLToRichText(); return false;" accesskey="u">Update rich text</a>HTML</div>
+
+<!-- Wiki markup -->
+<form style="position: absolute; padding-top: 2em; top: 0; left: 50%; height: 100%; width: 50%;" action=""><fieldset><textarea style="padding-left: 0.5em; border-left: 1px solid #E0E0E0;" id="wikimarkup" rows="1" cols="1"></textarea></fieldset></form>
+<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 2em; padding: 0.5em; background-color: #E0E0E0; font-weight: bold;"><a href="readme.html" title="Documentation and support details">Help</a>Wiki markup</div>
+
+</body>
+</html>
