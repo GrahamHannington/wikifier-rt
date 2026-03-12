@@ -180,8 +180,10 @@ function wikify()
   strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(hr[^>]*)>/g, "<$1/>");
   // More complex regular expression to allow for > in img attribute values
   strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(img(?:\s+\S+\s*=\s*"[^"]+")+)>/g, "<$1/>");
-  // Also <col> elements (these do not exist in RTE HTML this is just in case someone pastes in content from, say, Excel
+  // Also <col> elements (these do not exist in RTE HTML this is just in case someone pastes in content from, say, Excel)
   strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(col\s+[^>]*)>/g, "<$1/>");
+  // Remove MSOffice-specific o: namespace prefix
+  strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/<(\/?)o:([^>]*)>/g, "<$1$2>");
   
   // Replace entity references (needs work!)
   strRTEXHTMLDoc = strRTEXHTMLDoc.replace(/\&nbsp;/g, "&#160;");
